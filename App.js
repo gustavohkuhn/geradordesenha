@@ -30,17 +30,14 @@ const App = () => {
     const [email, setEmail] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     
-    // Add state for biometric authentication result
     const [biometricAvailable, setBiometricAvailable] = useState(false);
 
     useEffect(() => {
-        // Check if biometric authentication is available
         LocalAuthentication.hasHardwareAsync().then((available) => {
             setBiometricAvailable(available);
         });
     }, []);
 
-    // Function to authenticate user via biometric authentication
     const authenticateBiometrically = async () => {
         try {
             const result = await LocalAuthentication.authenticateAsync({
@@ -118,7 +115,6 @@ const App = () => {
     };
     
 
-    // Função para gerar a senha
     const generatePassword = () => {
         let charset = '';
         let newPassword = '';
@@ -137,7 +133,6 @@ const App = () => {
         setPasswordStrength(checkPasswordStrength(newPassword));
     };
 
-    // Função para avaliar a força da senha
     const checkPasswordStrength = (password) => {
         let strength = 0;
         if (password.length >= 8) strength += 1;
@@ -153,7 +148,6 @@ const App = () => {
         return 'Muito Fraca';
     };
 
-    // Função para adicionar senha aos favoritos
     const addToFavorites = () => { 
         if (!favoritePasswords.includes(password) && password !== '') {
             setFavoritePasswords([...favoritePasswords, password]);
@@ -163,7 +157,6 @@ const App = () => {
         }
     };
 
-    // Função para exportar as senhas favoritas
     const exportFavorites = async () => {
         if (favoritePasswords.length === 0) {
             alert('Nenhuma senha favorita para exportar.');
@@ -230,7 +223,6 @@ const App = () => {
                 </View>
             ) : (
                 <View>
-                    {/* Configurações para personalizar a senha */}
                     <View style={styles.switchContainer}>
                         <Text style={{ color: darkMode ? '#fff' : '#333' }}>Usar Números</Text>
                         <Switch value={useNumbers} onValueChange={setUseNumbers} />
@@ -253,7 +245,7 @@ const App = () => {
                         style={styles.input}
                         value={passwordLength}
                         onChangeText={(text) => {
-                            const length = text.replace(/[^0-9]/g, ''); // Garante que só números sejam inseridos
+                            const length = text.replace(/[^0-9]/g, ''); 
                             setPasswordLength(length);
                         }}
                     />
@@ -285,7 +277,6 @@ const App = () => {
                 </View>
             )}
     
-            {/* Modal de Histórico de Senhas */}
             <Modal
                 visible={showGeneratedModal}
                 animationType="slide"
@@ -306,7 +297,6 @@ const App = () => {
                 </SafeAreaView>
             </Modal>
     
-            {/* Modal de Senhas Favoritas */}
             <Modal
                 visible={showFavoritesModal}
                 animationType="slide"
@@ -419,7 +409,7 @@ const getStyles = (darkMode) => {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: darkMode ? '#121212' : '#f8f8f8',
-            padding: 20, // Para dar mais espaço ao conteúdo
+            padding: 20, 
         },
         modalTitle: {
             fontSize: 24,
@@ -433,14 +423,14 @@ const getStyles = (darkMode) => {
         },
         modalButton: {
             backgroundColor: '#FFEC00',
-            paddingVertical: 15,  // Maior altura
-            paddingHorizontal: 30, // Maior largura
+            paddingVertical: 15,  
+            paddingHorizontal: 30, 
             borderRadius: 10,
             marginBottom: 20,
             alignItems: 'center',
             justifyContent: 'center',
             elevation: 3,
-            width: '80%', // Largura maior
+            width: '80%', 
         },
         modalButtonText: {
             color: '#333',
@@ -448,15 +438,15 @@ const getStyles = (darkMode) => {
             fontWeight: '600',
         },
         closeButton: {
-            backgroundColor: '#FF5722', // Laranja/avermelhado
+            backgroundColor: '#FF5722', 
             paddingVertical: 15,
-            paddingHorizontal: 40, // Maior largura
+            paddingHorizontal: 40, 
             borderRadius: 10,
             marginBottom: 15,
             alignItems: 'center',
             justifyContent: 'center',
             elevation: 3,
-            width: '80%', // Largura maior
+            width: '80%', 
         },
         closeButtonText: {
             color: '#fff',
